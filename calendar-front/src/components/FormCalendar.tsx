@@ -1,7 +1,6 @@
-import { Box } from '@mui/material';
 import React, { FormEvent } from 'react'
 import { BUTTON_SAVE, HINT_END_DATE, HINT_START_DATE, HINT_TITLE, TITLE_EVENT_FORM } from '../lib/strings';
-import { BORDER_RADIUS, styles } from '../lib/style';
+import { styles } from '../lib/style';
 
 interface Props {
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;

@@ -2,11 +2,10 @@ import React, { FormEvent, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction"
-import { Backdrop, Fade, Modal, Typography } from '@mui/material';
+import { Backdrop, Fade, Modal } from '@mui/material';
 import { Box } from '@mui/system';
 import { BORDER_RADIUS, styles } from '../../lib/style';
 import { Add } from '@mui/icons-material';
-import { BUTTON_SAVE, HINT_END_DATE, HINT_START_DATE, HINT_TITLE } from '../../lib/strings';
 import FormCalendar from '../../components/FormCalendar';
 
 const style = {
