@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Signup from './pages/Signup';
-import { Login } from '@mui/icons-material';
+import Login from './pages/Login';
 import Main from './pages/Main';
 import { Paper } from '@mui/material';
 import { Navigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { PATH } from './lib/consts';
 
 function App() {
   return (
-    <Paper elevation={0}>
+    <Paper elevation={0} style={{ width: '100%', height: '100vh' }}>
       <BrowserRouter>
         <Routes>
           <Route path="/*">
