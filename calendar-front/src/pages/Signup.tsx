@@ -21,7 +21,7 @@ function Signup() {
               <div style={styles.formGroup}>
                 <input type="password" name="confirm" placeholder={HINT_PASSWORD_CONFIRM} style={styles.formControl} />
               </div>
-              <button type='submit' style={styles.button}>{BUTTON_LOGIN}</button>
+              <button type='submit' style={styles.button}>{BUTTON_SIGNUP}</button>
             </form>
             <a href={`/${PATH.login}`} style={{ ...styles.link, position: 'absolute' }}>{BUTTON_LOGIN}</a>
           </CardContent>
