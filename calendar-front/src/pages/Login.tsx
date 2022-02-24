@@ -1,17 +1,27 @@
 import { Card, CardContent, Typography } from '@mui/material'
-import React from 'react'
+import React, { FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { PATH } from '../lib/consts'
 import { BUTTON_LOGIN, BUTTON_SIGNUP, HINT_EMAIL, HINT_PASSWORD } from '../lib/strings'
 import { styles } from '../lib/style'
 
 function Login() {
+
+  const navigate = useNavigate();
+
+  const onSubmit = (form: FormEvent<HTMLFormElement>) => {
+    form.preventDefault();
+
+    navigate(`/${PATH.root}`);
+  }
+
   return (
     <>
       <div style={styles.containerFlex}>
         <Card sx={styles.card} elevation={4}>
           <CardContent sx={{ position: 'relative' }}>
             <h5 style={styles.title}>{ BUTTON_LOGIN }</h5>
-            <form style={styles.formStyle} >
+            <form style={styles.formStyle} onSubmit={onSubmit}>
               <div style={styles.formGroup}>
                 <input type="email" name="email" placeholder={HINT_EMAIL} style={styles.formControl} />
               </div>
