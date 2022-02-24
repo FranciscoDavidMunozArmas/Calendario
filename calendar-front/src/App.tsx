@@ -5,16 +5,19 @@ import './App.css';
 import Signup from './pages/Signup';
 import { Login } from '@mui/icons-material';
 import Main from './pages/Main';
+import { Paper } from '@mui/material';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/constecoin" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
-    </BrowserRouter>
+    <Paper elevation={0}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/constecoin" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
+    </Paper>
   );
 }
 
