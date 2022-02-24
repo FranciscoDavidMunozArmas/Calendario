@@ -23,8 +23,6 @@ function Login() {
             </form>
             <a href={`/${PATH.signup}`} style={{ ...styles.link, position: 'absolute' }}>{BUTTON_SIGNUP}</a>
           </CardContent>
-
-
         </Card>
       </div>
     </>
