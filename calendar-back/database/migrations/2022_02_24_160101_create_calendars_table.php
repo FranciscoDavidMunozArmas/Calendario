@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('calendars', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->string('title');
+            $table->dateTime('date_start');
+            $table->dateTime('date_end');
             $table->timestamps();
         });
     }
