@@ -25,6 +25,10 @@ export const styles = {
     formGroup: {
         width: '100%',
         margin: '0.75rem 0',
+        dispaly: 'flex',
+        flexDirection: 'row' as const,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     formControl: {
         width: '100%',
@@ -64,5 +68,22 @@ export const styles = {
         color: palette.primary,
         textDecoration: 'none',
         fontSize: '0.8rem',
+    },
+    floatingButton: {
+        padding: '0.5rem 1rem',
+        width: '50px',
+        height: '50px',
+        background: palette.primary,
+        color: '#fff',
+        border: `1px solid ${palette.primary}`,
+        borderRadius: '100%',
+        marginHorizontal: 'auto',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center' as const,
+        justifyContent: 'center' as const,
+        position: 'fixed' as const,
+        right: '1rem',
+        bottom: '1rem',
     }
 }
