@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { PATH } from '../lib/consts'
 import { BUTTON_LOGIN, BUTTON_SIGNUP, HINT_EMAIL, HINT_PASSWORD, HINT_PASSWORD_CONFIRM } from '../lib/strings'
 import { styles } from '../lib/style'
+import { toastManager } from '../lib/toastManager'
 
 function Signup() {
 
@@ -13,6 +14,7 @@ function Signup() {
     form.preventDefault();
 
     navigate(`/${PATH.login}`);
+    toastManager.success("Cuenta creada con éxito");
   }
 
   return (
