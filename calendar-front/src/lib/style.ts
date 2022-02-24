@@ -85,5 +85,6 @@ export const styles = {
         position: 'fixed' as const,
         right: '1rem',
         bottom: '1rem',
+        zIndex: '999',
     }
 }

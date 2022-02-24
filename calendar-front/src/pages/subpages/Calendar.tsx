@@ -7,6 +7,7 @@ import { Box } from '@mui/system';
 import { BORDER_RADIUS, styles } from '../../lib/style';
 import { Add } from '@mui/icons-material';
 import { BUTTON_SAVE, HINT_END_DATE, HINT_START_DATE, HINT_TITLE } from '../../lib/strings';
+import FormCalendar from '../../components/FormCalendar';
 
 const style = {
   position: 'absolute',
@@ -61,22 +62,8 @@ function Calendar() {
         BackdropProps={{ timeout: 500 }}
       >
         <Fade in={open}>
-          <Box sx={{...style}}>
-            <h5 style={styles.title}>{ HINT_TITLE }</h5>
-            <form style={styles.formStyle} onSubmit={onSubmit}>
-              <div style={styles.formGroup}>
-                <input type="text" name="title" placeholder={HINT_TITLE} style={styles.formControl} />
-              </div>
-              <div style={styles.formGroup}>
-              <label htmlFor="startDate">{HINT_START_DATE}</label>
-                <input type="datetime-local" name="startDate" placeholder={HINT_START_DATE} style={styles.formControl} />
-              </div>
-              <div style={styles.formGroup}>
-                <label htmlFor="endDate">{HINT_END_DATE}</label>
-                <input type="datetime-local" name="endDate" placeholder={HINT_END_DATE} style={styles.formControl} />
-              </div>
-              <button type='submit' style={styles.button}>{BUTTON_SAVE}</button>
-            </form>
+          <Box sx={style}>
+            <FormCalendar onSubmit={onSubmit} />
           </Box>
         </Fade>
       </Modal>
