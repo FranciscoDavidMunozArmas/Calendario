@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('v1/login', 'AuthController@login');
+Route::post('v1/login', 'AuthController@register');
+
+Route::get('/v1/calendars', 'CalendarController@show');
+Route::post('/v1/calendars', 'CalendarController@store');
+Route::post('v1/login', 'AuthController@logout');
