@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction"
@@ -9,8 +9,8 @@ import { Add } from '@mui/icons-material';
 import FormCalendar from '../../components/FormCalendar';
 import { toastManager } from '../../lib/toastManager';
 import { ERROR_SENDING_DATA, SUCCESS_EVENT_SAVED, TITLE_EVENT_FORM } from '../../lib/strings';
-import { EventConverter } from '../../classes/Event';
-import { createEvent } from '../../services/event.service';
+import { Event, EventConverter } from '../../classes/Event';
+import { createEvent, getEvents } from '../../services/event.service';
 
 const style = {
   position: 'absolute',
@@ -32,6 +32,7 @@ const style = {
 function Calendar() {
 
   const [open, setopen] = useState<boolean>(false);
+  const [events, setevents] = useState<Event[]>([]);
 
   const handleClose = () => {
     setopen(false);
@@ -41,9 +42,19 @@ function Calendar() {
     setopen(true);
   }
 
+  const getData = async () => {
+    try {
+      const events = await getEvents();
+      setevents(events.data.map(EventConverter.fromJSON));
+    } catch (error: any) {
+      toastManager.error(ERROR_SENDING_DATA);
+    }
+  }
+
   const onSubmit = async (calendar: any) => {
     try {
-      await createEvent(EventConverter.fromJSON(calendar));
+      const newEvent = await createEvent(EventConverter.fromJSON(calendar));
+      setevents([...events, EventConverter.fromJSON(newEvent.data)]);
       handleClose();
       toastManager.success(SUCCESS_EVENT_SAVED);
     } catch (error: any) {
@@ -51,11 +62,24 @@ function Calendar() {
     }
   }
 
+  const formatEvents = () => {
+    return events.map((event: Event) => {
+      return { title: event.title, start: event.date_start, end: event.date_end }
+    });
+  }
+
+  useEffect(() => {
+    getData();
+    return () => { }
+  }, [])
+
+
   return (
     <>
 
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
+        events={formatEvents()}
       />
 
       <button style={styles.floatingButton} onClick={handleOpen}><Add /></button>
