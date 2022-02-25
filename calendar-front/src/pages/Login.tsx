@@ -32,8 +32,8 @@ function Login() {
         return;
       }
       const token = await login({ email: user.email, password: user.password });
-      // setUpToken(token);
-      // navigate(`/${PATH.root}`);
+      setUpToken(token);
+      navigate(`/${PATH.root}`);
     } catch (error: any) {
       console.log(error);
     }
