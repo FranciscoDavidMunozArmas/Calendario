@@ -18,13 +18,11 @@ use App\Http\Controllers\CalendarController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::post('v1/auth/login', [AuthController::class, 'login']);
 Route::post('v1/auth/register', [AuthController::class, 'register']);
 
-Route::get('v1/calendars', [CalendarController::class, 'show']);
-Route::post('v1/calendars', [CalendarController::class, 'store']);
-Route::post('v1/logout', [AuthController::class, 'logout']);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('v1/calendars', [CalendarController::class, 'show']);
+    Route::post('v1/calendars', [CalendarController::class, 'store']);
+    Route::post('v1/logout', [AuthController::class, 'logout']);
+});

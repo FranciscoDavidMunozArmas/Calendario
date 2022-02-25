@@ -14,6 +14,8 @@ export const BUTTON_SAVE = "Guardar";
 
 export const TITLE_EVENT_FORM = "Formulario de Evento";
 
+export const SUCCESS_EVENT_SAVED = "El evento se ha guardado correctamente";
+
 export const ERROR_MESSAGE = "Ha ocurrido un error";
 export const ERROR_EMAIL_REQUIRED = "El correo electrónico es requerido";
 export const ERROR_EMAIL_INVALID = "El usuario no existe";
@@ -21,3 +23,6 @@ export const ERROR_PASSWORD_REQUIRED = "La contraseña es requerida";
 export const ERROR_PASSWORD_CONFIRM = "Las contraseñas no coinciden";
 export const ERROR_PASSWORD_LENGTH = `La contraseña debe tener al menos ${PASSWORD_LENGTH} caracteres`;
 export const ERROR_CREDENTIALS_INVALID = "Las credenciales no coinciden";
+export const ERROR_SENDING_DATA = "Ha ocurrido un error al enviar los datos";
+export const ERROR_DATE = "La fecha debe ser posterior a la fecha actual";
+export const ERROR_TITLE_REQUIRED = "El titulo es requerido";

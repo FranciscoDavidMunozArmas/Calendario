@@ -17,6 +17,7 @@ export const getEvents = async () => {
 };
 
 export const createEvent = async (event: Event) => {
+    console.log(JSON.stringify(EventConverter.toJSON(event)))
     return await axios.post(`${URI}/calendars`, JSON.stringify(EventConverter.toJSON(event)), {
         headers: {
             Authorization: getAuthorizationToken(),

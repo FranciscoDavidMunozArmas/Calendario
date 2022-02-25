@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class Event {
     id?: number;
     title: string;
@@ -25,8 +27,8 @@ export const EventConverter = {
         return {
             id: event.id,
             title: event.title,
-            date_start: event.date_start.toISOString(),
-            date_end: event.date_end.toISOString()
+            date_start: moment(event.date_start).format("YYYY-MM-DD hh:mm:ss"),
+            date_end: moment(event.date_end).format("YYYY-MM-DD hh:mm:ss")
         };
     }
 };

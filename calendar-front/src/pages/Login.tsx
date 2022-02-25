@@ -32,7 +32,7 @@ function Login() {
         return;
       }
       const token = await login({ email: user.email, password: user.password });
-      setUpToken(token);
+      setUpToken(token.data.token);
       navigate(`/${PATH.root}`);
     } catch (error: any) {
       console.log(error);
