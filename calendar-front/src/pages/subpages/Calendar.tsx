@@ -8,9 +8,10 @@ import { BORDER_RADIUS, styles } from '../../lib/style';
 import { Add } from '@mui/icons-material';
 import FormCalendar from '../../components/FormCalendar';
 import { toastManager } from '../../lib/toastManager';
-import { ERROR_DELETING_DATA, ERROR_MODIFYING_DATA, ERROR_SENDING_DATA, SUCCESS_EVENT_DELETED, SUCCESS_EVENT_SAVED, TITLE_EVENT_FORM } from '../../lib/strings';
+import { ERROR_DELETING_DATA, ERROR_SENDING_DATA, SUCCESS_EVENT_DELETED, SUCCESS_EVENT_SAVED, TITLE_EVENT_FORM } from '../../lib/strings';
 import { Event, EventConverter } from '../../classes/Event';
 import { deleteEvent, getEvents, postEvent, putEvent } from '../../services/event.service';
+import Loading from '../../components/Loading';
 
 const style = {
   position: 'absolute',
@@ -34,6 +35,7 @@ function Calendar() {
   const [open, setopen] = useState<boolean>(false);
   const [events, setevents] = useState<Event[]>([]);
   const [selected, setselected] = useState<Event | null>(null);
+  const [loading, setloading] = useState<boolean>(false);
 
   const handleClose = () => {
     setopen(false);
@@ -45,20 +47,24 @@ function Calendar() {
   }
 
   const getData = async () => {
+    setloading(true);
     try {
       const events = await getEvents();
       setevents(events.data.map(EventConverter.fromJSON));
     } catch (error: any) {
       toastManager.error(ERROR_SENDING_DATA);
     }
+    setloading(false);
   }
 
   const onSubmit = (calendar: any) => {
+    setloading(true);
     if (selected && selected.id) {
       updateEvent(calendar, selected.id);
     } else {
       createEvent(calendar);
     }
+    setloading(false);
   }
 
   const createEvent = async (event: any) => {
@@ -84,6 +90,7 @@ function Calendar() {
   }
 
   const onDelete = async (id: any) => {
+    setloading(true);
     try {
       await deleteEvent(id);
       setevents(events.filter(event => event.id?.toString() !== id));
@@ -92,6 +99,7 @@ function Calendar() {
     } catch (error: any) {
       toastManager.error(ERROR_DELETING_DATA);
     }
+    setloading(false);
   }
 
   const formatEvents = () => {
@@ -124,7 +132,7 @@ function Calendar() {
 
   return (
     <>
-
+      <Loading load={loading} />
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         events={formatEvents()}

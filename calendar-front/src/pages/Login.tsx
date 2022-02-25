@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@mui/material'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../components/Loading'
 import { PATH } from '../lib/consts'
 import { loginErrorHandler } from '../lib/errorHandler'
 import { BUTTON_LOGIN, BUTTON_SIGNUP, ERROR_EMAIL_REQUIRED, ERROR_PASSWORD_REQUIRED, HINT_EMAIL, HINT_PASSWORD } from '../lib/strings'
@@ -13,6 +14,7 @@ import { login } from '../services/user.service'
 function Login() {
 
   const [user, setuser] = useState<any>();
+  const [loading, setloading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -22,14 +24,16 @@ function Login() {
 
   const onSubmit = async (form: FormEvent<HTMLFormElement>) => {
     form.preventDefault();
-
+    setloading(true);
     try {
       if (!user.email) {
         toastManager.error(ERROR_EMAIL_REQUIRED);
+        setloading(false);
         return;
       }
       if (!user.password) {
         toastManager.error(ERROR_PASSWORD_REQUIRED);
+        setloading(false);
         return;
       }
       const token = await login({ email: user.email, password: user.password });
@@ -38,11 +42,13 @@ function Login() {
     } catch (error: any) {
       loginErrorHandler(error.response.status);
     }
+    setloading(false);
   }
 
   return (
     <>
       <div style={styles.containerFlex}>
+        <Loading load={loading} />
         <Card sx={styles.card} elevation={4}>
           <CardContent sx={{ position: 'relative' }}>
             <h5 style={styles.title}>{BUTTON_LOGIN}</h5>
