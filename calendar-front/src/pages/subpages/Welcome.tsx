@@ -1,20 +1,22 @@
 import React from 'react'
 import { TITLE_WELCOME } from '../../lib/strings'
+import { palette } from '../../lib/style'
 
 const styles = {
   containerFlex: {
-    height: '100%',
-    width: '90vh',
+    height: '90vh',
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column' as const
   },
   title: {
-    fontSize: '2rem',
+    fontSize: '3rem',
     fontWeight: 'bold',
     marginBottom: '1rem',
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    color: palette.primary
   }
 }
 
