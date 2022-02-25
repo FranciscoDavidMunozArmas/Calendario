@@ -14,7 +14,7 @@ export const BUTTON_SAVE = "Guardar";
 
 export const TITLE_EVENT_FORM = "Formulario de Evento";
 
-
+export const ERROR_MESSAGE = "Ha ocurrido un error";
 export const ERROR_EMAIL_REQUIRED = "El correo electrónico es requerido";
 export const ERROR_EMAIL_INVALID = "El usuario no existe";
 export const ERROR_PASSWORD_REQUIRED = "La contraseña es requerida";
