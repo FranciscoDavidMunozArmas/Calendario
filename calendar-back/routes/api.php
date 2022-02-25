@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CalendarController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('v1/login', 'AuthController@login');
-Route::post('v1/login', 'AuthController@register');
+Route::post('v1/auth/login', [AuthController::class, 'login']);
+Route::post('v1/auth/register', [AuthController::class, 'register']);
 
-Route::get('/v1/calendars', 'CalendarController@show');
-Route::post('/v1/calendars', 'CalendarController@store');
-Route::post('v1/login', 'AuthController@logout');
+Route::get('v1/calendars', [CalendarController::class, 'show']);
+Route::post('v1/calendars', [CalendarController::class, 'store']);
+Route::post('v1/logout', [AuthController::class, 'logout']);

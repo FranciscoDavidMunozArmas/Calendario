@@ -17,5 +17,12 @@ export const logout = async ({ email, password }: any) => {
 }
 
 export const createUser = async ({ email, password }: any) => {
-    return await axios.post(`${URI}/auth/register`, { email, password });
+    return await axios.post(`${URI}/auth/register`, JSON.stringify({ email, password }),
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            withCredentials: false
+        });
 }

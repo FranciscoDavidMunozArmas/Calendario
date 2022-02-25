@@ -15,12 +15,19 @@ class AuthController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        $user = User::create([
-            'email' => $fields['email'],
-            'password' => Hash::make($fields['password']),
-        ]);
+        try {
 
-        return response()->json($user, 201);
+            $user = User::create([
+                'email' => $fields['email'],
+                'password' => Hash::make($fields['password']),
+            ]);
+
+            return response()->json($user, 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     public function login(Request $request)
@@ -31,7 +38,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $fields['email'])->first();
-        if(!$user) {
+        if (!$user) {
             return response()->json(['message' => 'User not found'], 400);
         }
         if (!Hash::check($fields['password'], $user->password)) {
@@ -42,7 +49,7 @@ class AuthController extends Controller
 
         return response()->json(['token' => $token], 201);
     }
-    
+
     public function logout(Request $request)
     {
         $request->user()->token()->delete();

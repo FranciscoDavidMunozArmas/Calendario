@@ -18,5 +18,6 @@ export const TITLE_EVENT_FORM = "Formulario de Evento";
 export const ERROR_EMAIL_REQUIRED = "El correo electrónico es requerido";
 export const ERROR_EMAIL_INVALID = "El usuario no existe";
 export const ERROR_PASSWORD_REQUIRED = "La contraseña es requerida";
+export const ERROR_PASSWORD_CONFIRM = "Las contraseñas no coinciden";
 export const ERROR_PASSWORD_LENGTH = `La contraseña debe tener al menos ${PASSWORD_LENGTH} caracteres`;
 export const ERROR_CREDENTIALS_INVALID = "Las credenciales no coinciden";
