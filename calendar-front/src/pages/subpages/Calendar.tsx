@@ -54,9 +54,9 @@ function Calendar() {
   }
 
   const onSubmit = (calendar: any) => {
-    if(selected && selected.id) {
+    if (selected && selected.id) {
       updateEvent(calendar, selected.id);
-    } else  {
+    } else {
       createEvent(calendar);
     }
   }
@@ -74,8 +74,8 @@ function Calendar() {
 
   const updateEvent = async (event: any, id: number) => {
     try {
-      const newEvent = await putEvent(EventConverter.fromJSON(event), id);
-      setevents(events.map(event => event.id === id ? EventConverter.fromJSON(newEvent.data) : event));
+      const updatedData = await putEvent(EventConverter.fromJSON(event), id);
+      setevents(events.filter(e => e.id?.toString() !== id.toString()).concat(EventConverter.fromJSON(updatedData.data)));
       handleClose();
       toastManager.success(SUCCESS_EVENT_SAVED);
     } catch (error: any) {
@@ -106,7 +106,13 @@ function Calendar() {
   }
 
   const handleEventClick = ({ event }: any) => {
-    setselected(EventConverter.fromJSON(event));
+    const selectedEvent = EventConverter.fromJSON({
+      id: event.id,
+      title: event.title,
+      date_start: event.start,
+      date_end: event.end,
+    });
+    setselected(selectedEvent);
     handleOpen();
   }
 

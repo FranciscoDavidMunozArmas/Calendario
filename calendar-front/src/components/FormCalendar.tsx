@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { Event } from '../classes/Event';
+import { Event, EventConverter } from '../classes/Event';
 import { BUTTON_DELETE, BUTTON_SAVE, ERROR_DATE, HINT_END_DATE, HINT_START_DATE, HINT_TITLE } from '../lib/strings';
 import { styles } from '../lib/style';
 import { toastManager } from '../lib/toastManager';
@@ -38,17 +38,7 @@ function FormCalendar(props: Props) {
 
     useEffect(() => {
         if (props.event) {
-            setcalendar({
-                title: props.event.title,
-                date_start: props.event.date_start,
-                date_end: props.event.date_end
-            });
-        } else {
-            setcalendar({
-                title: "",
-                date_start: "",
-                date_end: ""
-            });
+            setcalendar(EventConverter.toJSON(props.event));
         }
         return () => { }
     }, [props.event])
@@ -76,6 +66,7 @@ function FormCalendar(props: Props) {
                         placeholder={HINT_START_DATE}
                         onChange={handleChange}
                         style={styles.formControl}
+                        value={(calendar.date_start) && new Date(calendar.date_start).toISOString().slice(0,16)}
                         required />
                 </div>
                 <div style={styles.formGroup}>
@@ -86,6 +77,7 @@ function FormCalendar(props: Props) {
                         placeholder={HINT_END_DATE}
                         onChange={handleChange}
                         style={styles.formControl}
+                        value={(calendar.date_end) && new Date(calendar.date_end).toISOString().slice(0,16)}
                         required />
                 </div>
                 <div style={{ ...styles.formGroup, display: 'flex', justifyContent: 'center' }}>
