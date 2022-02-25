@@ -2,6 +2,7 @@ import { Card, CardContent } from '@mui/material'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../lib/consts'
+import { loginErrorHandler } from '../lib/errorHandler'
 import { BUTTON_LOGIN, BUTTON_SIGNUP, ERROR_EMAIL_REQUIRED, ERROR_PASSWORD_REQUIRED, HINT_EMAIL, HINT_PASSWORD } from '../lib/strings'
 import { styles } from '../lib/style'
 import { toastManager } from '../lib/toastManager'
@@ -35,7 +36,7 @@ function Login() {
       setUpToken(token.data.token);
       navigate(`/${PATH.root}`);
     } catch (error: any) {
-      console.log(error);
+      loginErrorHandler(error.response.status);
     }
   }
 

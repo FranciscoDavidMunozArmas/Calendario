@@ -2,6 +2,7 @@ import { Card, CardContent } from '@mui/material'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../lib/consts'
+import { signupErrorHandler } from '../lib/errorHandler'
 import { BUTTON_LOGIN, BUTTON_SIGNUP, ERROR_EMAIL_REQUIRED, ERROR_MESSAGE, ERROR_PASSWORD_CONFIRM, ERROR_PASSWORD_LENGTH, ERROR_PASSWORD_REQUIRED, HINT_EMAIL, HINT_PASSWORD, HINT_PASSWORD_CONFIRM } from '../lib/strings'
 import { styles } from '../lib/style'
 import { toastManager } from '../lib/toastManager'
@@ -30,7 +31,7 @@ function Signup() {
         toastManager.error(ERROR_PASSWORD_REQUIRED);
         return;
       }
-      if(user.password.length < PASSWORD_LENGTH){
+      if (user.password.length < PASSWORD_LENGTH) {
         toastManager.error(ERROR_PASSWORD_LENGTH);
         return;
       }
@@ -42,7 +43,7 @@ function Signup() {
       navigate(`/${PATH.login}`);
       toastManager.success("Cuenta creada con éxito");
     } catch (error: any) {
-      toastManager.error(ERROR_MESSAGE);
+      signupErrorHandler(error.response.status);
     }
   }
 

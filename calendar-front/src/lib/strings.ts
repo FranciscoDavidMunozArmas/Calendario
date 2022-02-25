@@ -22,6 +22,7 @@ export const ERROR_EVENT_MODIFYING = "Ha ocurrido un error al modificar el event
 export const ERROR_MESSAGE = "Ha ocurrido un error";
 export const ERROR_EMAIL_REQUIRED = "El correo electrónico es requerido";
 export const ERROR_EMAIL_INVALID = "El usuario no existe";
+export const ERROR_EMAIL_OCCUPIED = "El correo electrónico ya está en uso";
 export const ERROR_PASSWORD_REQUIRED = "La contraseña es requerida";
 export const ERROR_PASSWORD_CONFIRM = "Las contraseñas no coinciden";
 export const ERROR_PASSWORD_LENGTH = `La contraseña debe tener al menos ${PASSWORD_LENGTH} caracteres`;
