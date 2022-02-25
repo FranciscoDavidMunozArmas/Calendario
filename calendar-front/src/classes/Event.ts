@@ -1,14 +1,14 @@
 export class Event {
     id?: number;
     title: string;
-    startDate: Date;
-    endDate: Date;
+    date_start: Date;
+    date_end: Date;
 
-    constructor(id: number, title: string, startDate: Date, endDate: Date) {
+    constructor(id: number, title: string, date_start: Date, date_end: Date) {
         this.id = id;
         this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.date_start = date_start;
+        this.date_end = date_end;
     }
 }
 
@@ -17,16 +17,16 @@ export const EventConverter = {
         return new Event(
             json.id,
             json.title,
-            new Date(json.startDate),
-            new Date(json.endDate)
+            new Date(json.date_start),
+            new Date(json.date_end)
         );
     },
     toJSON: (event: Event): any => {
         return {
             id: event.id,
             title: event.title,
-            startDate: event.startDate.toISOString(),
-            endDate: event.endDate.toISOString()
+            startDate: event.date_start.toISOString(),
+            endDate: event.date_end.toISOString()
         };
     }
 };
