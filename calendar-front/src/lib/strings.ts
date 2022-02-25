@@ -14,6 +14,7 @@ export const BUTTON_SAVE = "Guardar";
 export const BUTTON_DELETE = "Eliminar";
 
 export const TITLE_EVENT_FORM = "Formulario de Evento";
+export const TITLE_WELCOME = "Bienvenido";
 
 export const SUCCESS_EVENT_SAVED = "El evento se ha guardado correctamente";
 export const SUCCESS_EVENT_DELETED = "El evento se ha eliminado correctamente";
