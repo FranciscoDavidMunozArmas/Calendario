@@ -25,8 +25,8 @@ export const EventConverter = {
         return {
             id: event.id,
             title: event.title,
-            startDate: event.date_start.toISOString(),
-            endDate: event.date_end.toISOString()
+            date_start: event.date_start.toISOString(),
+            date_end: event.date_end.toISOString()
         };
     }
 };
