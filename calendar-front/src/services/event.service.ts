@@ -16,9 +16,32 @@ export const getEvents = async () => {
         });
 };
 
-export const createEvent = async (event: Event) => {
-    console.log(JSON.stringify(EventConverter.toJSON(event)))
+export const postEvent = async (event: Event) => {
     return await axios.post(`${URI}/calendars`, JSON.stringify(EventConverter.toJSON(event)), {
+        headers: {
+            Authorization: getAuthorizationToken(),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        withCredentials: false
+    });
+}
+
+export const putEvent = async (event: Event, id: number) => {
+    return await axios.put(`${URI}/calendars/${id}`, JSON.stringify(EventConverter.toJSON(event)), {
+        headers: {
+            Authorization: getAuthorizationToken(),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        withCredentials: false
+    });
+}
+
+
+export const deleteEvent = async (id: number) => {
+    console.log(`${URI}/calendars/${id}`)
+    return await axios.delete(`${URI}/calendars/${id}`, {
         headers: {
             Authorization: getAuthorizationToken(),
             'Accept': 'application/json',

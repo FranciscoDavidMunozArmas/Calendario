@@ -8,9 +8,9 @@ import { BORDER_RADIUS, styles } from '../../lib/style';
 import { Add } from '@mui/icons-material';
 import FormCalendar from '../../components/FormCalendar';
 import { toastManager } from '../../lib/toastManager';
-import { ERROR_SENDING_DATA, SUCCESS_EVENT_SAVED, TITLE_EVENT_FORM } from '../../lib/strings';
+import { ERROR_DELETING_DATA, ERROR_MODIFYING_DATA, ERROR_SENDING_DATA, SUCCESS_EVENT_DELETED, SUCCESS_EVENT_SAVED, TITLE_EVENT_FORM } from '../../lib/strings';
 import { Event, EventConverter } from '../../classes/Event';
-import { createEvent, getEvents } from '../../services/event.service';
+import { deleteEvent, getEvents, postEvent, putEvent } from '../../services/event.service';
 
 const style = {
   position: 'absolute',
@@ -33,9 +33,11 @@ function Calendar() {
 
   const [open, setopen] = useState<boolean>(false);
   const [events, setevents] = useState<Event[]>([]);
+  const [selected, setselected] = useState<Event | null>(null);
 
   const handleClose = () => {
     setopen(false);
+    setselected(null);
   }
 
   const handleOpen = () => {
@@ -51,9 +53,17 @@ function Calendar() {
     }
   }
 
-  const onSubmit = async (calendar: any) => {
+  const onSubmit = (calendar: any) => {
+    if(selected && selected.id) {
+      updateEvent(calendar, selected.id);
+    } else  {
+      createEvent(calendar);
+    }
+  }
+
+  const createEvent = async (event: any) => {
     try {
-      const newEvent = await createEvent(EventConverter.fromJSON(calendar));
+      const newEvent = await postEvent(EventConverter.fromJSON(event));
       setevents([...events, EventConverter.fromJSON(newEvent.data)]);
       handleClose();
       toastManager.success(SUCCESS_EVENT_SAVED);
@@ -62,10 +72,42 @@ function Calendar() {
     }
   }
 
+  const updateEvent = async (event: any, id: number) => {
+    try {
+      const newEvent = await putEvent(EventConverter.fromJSON(event), id);
+      setevents(events.map(event => event.id === id ? EventConverter.fromJSON(newEvent.data) : event));
+      handleClose();
+      toastManager.success(SUCCESS_EVENT_SAVED);
+    } catch (error: any) {
+      toastManager.error(ERROR_SENDING_DATA);
+    }
+  }
+
+  const onDelete = async (id: any) => {
+    try {
+      await deleteEvent(id);
+      setevents(events.filter(event => event.id?.toString() !== id));
+      handleClose();
+      toastManager.success(SUCCESS_EVENT_DELETED);
+    } catch (error: any) {
+      toastManager.error(ERROR_DELETING_DATA);
+    }
+  }
+
   const formatEvents = () => {
     return events.map((event: Event) => {
-      return { title: event.title, start: event.date_start, end: event.date_end }
+      return {
+        id: event.id?.toString(),
+        title: event.title,
+        start: event.date_start,
+        end: event.date_end,
+      }
     });
+  }
+
+  const handleEventClick = ({ event }: any) => {
+    setselected(EventConverter.fromJSON(event));
+    handleOpen();
   }
 
   useEffect(() => {
@@ -80,6 +122,7 @@ function Calendar() {
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         events={formatEvents()}
+        eventClick={handleEventClick}
       />
 
       <button style={styles.floatingButton} onClick={handleOpen}><Add /></button>
@@ -93,7 +136,11 @@ function Calendar() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <FormCalendar onSubmit={onSubmit} title={TITLE_EVENT_FORM} />
+            <FormCalendar
+              onSubmit={onSubmit}
+              onDelete={onDelete}
+              title={TITLE_EVENT_FORM}
+              event={selected} />
           </Box>
         </Fade>
       </Modal>

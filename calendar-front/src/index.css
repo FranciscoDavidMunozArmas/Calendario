@@ -24,6 +24,7 @@ input:focus-visible {
 
 button {
     transition: .3s all ease;
+    margin: 0 0.25rem;
 }
 
 button:hover {

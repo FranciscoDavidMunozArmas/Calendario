@@ -1,11 +1,14 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { BUTTON_SAVE, ERROR_DATE, HINT_END_DATE, HINT_START_DATE, HINT_TITLE } from '../lib/strings';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { Event } from '../classes/Event';
+import { BUTTON_DELETE, BUTTON_SAVE, ERROR_DATE, HINT_END_DATE, HINT_START_DATE, HINT_TITLE } from '../lib/strings';
 import { styles } from '../lib/style';
 import { toastManager } from '../lib/toastManager';
 
 interface Props {
     onSubmit: (event: any) => void;
+    onDelete: (id: any) => void;
     title: string;
+    event?: Event | null;
 }
 
 function FormCalendar(props: Props) {
@@ -20,30 +23,75 @@ function FormCalendar(props: Props) {
         event.preventDefault();
         const startDate = new Date(calendar.date_start);
         const endDate = new Date(calendar.date_end);
-        const today = new Date();
-        if(startDate.getTime() >= endDate.getTime() || startDate.getTime() < today.getTime()) {
+        if (startDate.getTime() >= endDate.getTime()) {
             toastManager.error(ERROR_DATE);
             return;
         }
         props.onSubmit(calendar);
     }
 
+    const handleDelete = () => {
+        if(props.event) {
+            props.onDelete(props.event.id);
+        }
+    }
+
+    useEffect(() => {
+        if (props.event) {
+            setcalendar({
+                title: props.event.title,
+                date_start: props.event.date_start,
+                date_end: props.event.date_end
+            });
+        } else {
+            setcalendar({
+                title: "",
+                date_start: "",
+                date_end: ""
+            });
+        }
+        return () => { }
+    }, [props.event])
+
+
     return (
         <>
             <h5 style={styles.title}>{props.title}</h5>
             <form style={styles.formStyle} onSubmit={handleSubmit}>
                 <div style={styles.formGroup}>
-                    <input type="text" name="title" placeholder={HINT_TITLE} onChange={handleChange} style={styles.formControl} required />
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder={HINT_TITLE}
+                        onChange={handleChange}
+                        style={styles.formControl}
+                        value={calendar.title}
+                        required />
                 </div>
                 <div style={styles.formGroup}>
                     <label htmlFor="date_start">{HINT_START_DATE}</label>
-                    <input type="datetime-local" name="date_start" placeholder={HINT_START_DATE} onChange={handleChange} style={styles.formControl} required />
+                    <input
+                        type="datetime-local"
+                        name="date_start"
+                        placeholder={HINT_START_DATE}
+                        onChange={handleChange}
+                        style={styles.formControl}
+                        required />
                 </div>
                 <div style={styles.formGroup}>
                     <label htmlFor="date_end">{HINT_END_DATE}</label>
-                    <input type="datetime-local" name="date_end" placeholder={HINT_END_DATE} onChange={handleChange} style={styles.formControl} required />
+                    <input
+                        type="datetime-local"
+                        name="date_end"
+                        placeholder={HINT_END_DATE}
+                        onChange={handleChange}
+                        style={styles.formControl}
+                        required />
                 </div>
-                <button type='submit' style={styles.button}>{BUTTON_SAVE}</button>
+                <div style={{ ...styles.formGroup, display: 'flex', justifyContent: 'center' }}>
+                    {(props.event) && <button type='button' style={styles.buttonDanger} onClick={handleDelete}>{BUTTON_DELETE}</button>}
+                    <button type='submit' style={styles.button}>{BUTTON_SAVE}</button>
+                </div>
             </form>
         </>
     )

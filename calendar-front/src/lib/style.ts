@@ -1,5 +1,6 @@
 export const palette = {
     primary: '#338CFF',
+    danger: '#E60C0C ',
 }
 
 export const BORDER_RADIUS = '0.45rem';
@@ -50,6 +51,16 @@ export const styles = {
         background: palette.primary,
         color: '#fff',
         border: `1px solid ${palette.primary}`,
+        borderRadius: BORDER_RADIUS,
+        marginHorizontal: 'auto',
+        cursor: 'pointer',
+        fontSize: '1rem',
+    },
+    buttonDanger: {
+        padding: '0.5rem 1rem',
+        background: palette.danger,
+        color: '#fff',
+        border: `1px solid ${palette.danger}`,
         borderRadius: BORDER_RADIUS,
         marginHorizontal: 'auto',
         cursor: 'pointer',
