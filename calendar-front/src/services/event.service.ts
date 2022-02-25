@@ -1,16 +1,28 @@
 import axios from "axios";
 import { Event, EventConverter } from "../classes/Event";
+import { getAuthorizationToken } from "../lib/tokenInterceptor";
 import { URI } from "../lib/utils";
 
 
-export const getEvents = async (userId: number) => {
-    return await axios.get(`${URI}/users/${userId}/events`);
+export const getEvents = async () => {
+    return await axios.get(`${URI}/calendars`,
+        {
+            headers: {
+                Authorization: getAuthorizationToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            withCredentials: false
+        });
 };
 
-export const getEvent = async (userId: number, eventId: number) => {
-    return await axios.get(`${URI}/users/${userId}/events/${eventId}`);
-};
-
-export const createEvent = async (userId: number, event: Event) => {
-    return await axios.post(`${URI}/users/${userId}/events`, EventConverter.toJSON(event));
+export const createEvent = async (event: Event) => {
+    return await axios.post(`${URI}/calendars`, EventConverter.toJSON(event), {
+        headers: {
+            Authorization: getAuthorizationToken(),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        withCredentials: false
+    });
 }
