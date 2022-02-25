@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Signup from './pages/Signup';
@@ -9,6 +9,7 @@ import { Navigate } from 'react-router-dom';
 import { PATH } from './lib/consts';
 
 function App() {
+
   return (
     <Paper elevation={0} style={{ width: '100%', height: '100vh' }}>
       <BrowserRouter>

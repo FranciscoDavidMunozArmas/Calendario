@@ -13,12 +13,6 @@ return [
     |
     */
 
-    'api' => [
-        'driver' => 'sanctum',
-        'provider' => 'users',
-        'hash' => false,
-    ],
-
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
@@ -46,10 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ]
     ],
 
     /*

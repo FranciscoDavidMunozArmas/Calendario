@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = function override(config, env) {
     config.resolve.fallback = {
@@ -23,6 +24,7 @@ module.exports = function override(config, env) {
             process: 'process/browser',
             Buffer: ['buffer', 'Buffer'],
         }),
+        new NodePolyfillPlugin()
     );
     config.resolve.plugins = config.resolve.plugins.filter(plugin => !(plugin instanceof ModuleScopePlugin));
     return config;

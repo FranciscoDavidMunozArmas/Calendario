@@ -7,3 +7,5 @@ export const utils = {
 }
 
 export const URI = `${utils.API_URI}/${utils.API_PREFIX}/${utils.API_VERSION}`;
+
+export const PASSWORD_LENGTH = 8;
