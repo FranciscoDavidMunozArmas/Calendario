@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAuthorizationToken } from "../lib/tokenInterceptor";
 import { URI } from "../lib/utils";
 
 export const login = async ({ email, password }: any) => {
@@ -14,9 +15,10 @@ export const login = async ({ email, password }: any) => {
 }
 
 export const logout = async () => {
-    return await axios.post(`${URI}/auth/logout`, null,
+    return await axios.post(`${URI}/auth/logout`, JSON.stringify({}),
         {
             headers: {
+                Authorization: getAuthorizationToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },

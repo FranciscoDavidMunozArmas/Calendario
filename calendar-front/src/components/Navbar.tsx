@@ -8,6 +8,10 @@ import { palette } from '../lib/style';
 import { Home, Logout } from '@mui/icons-material';
 import { PATH } from '../lib/consts';
 import { useNavigate } from 'react-router-dom';
+import { toastManager } from '../lib/toastManager';
+import { ERROR_MESSAGE } from '../lib/strings';
+import { logout } from '../services/user.service';
+import { removeToken } from '../lib/tokenInterceptor';
 
 function Navbar() {
 
@@ -17,8 +21,14 @@ function Navbar() {
         navigate(path);
     }
 
-    const onLogout = () => {
-        navigate(`/${PATH.login}`);
+    const onLogout = async () => {
+        try {
+            // await logout();
+            removeToken();
+            navigate(`/${PATH.login}`);
+        } catch (error: any) {
+            toastManager.error(ERROR_MESSAGE);
+        }
     }
 
     return (
