@@ -24,5 +24,8 @@ Route::post('v1/auth/register', [AuthController::class, 'register']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('v1/calendars', [CalendarController::class, 'show']);
     Route::post('v1/calendars', [CalendarController::class, 'store']);
+    Route::put('v1/calendars/{id}', [CalendarController::class, 'update']);
+    Route::delete('v1/calendars/{id}', [CalendarController::class, 'delete']);
+
     Route::post('v1/logout', [AuthController::class, 'logout']);
 });
