@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from "@fullcalendar/interaction"
 import { Backdrop, Fade, Modal } from '@mui/material';
 import { Box } from '@mui/system';
@@ -143,7 +142,7 @@ function Calendar() {
             right: 'dayGridMonth,dayGridWeek,dayGridDay',
           }}
           height={window.innerHeight * .9}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          plugins={[dayGridPlugin, interactionPlugin]}
           events={formatEvents()}
           eventClick={handleEventClick}
         />
